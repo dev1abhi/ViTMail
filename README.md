@@ -1,6 +1,6 @@
 # Email_Formatter_App
 
-# How to contribute to this project
+## How to contribute to this project
 
 - Make sure to read the [contributing guidelines](CONTRIBUTING.md) before contributing.
 - `Fork` this repository.
