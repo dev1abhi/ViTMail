@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "28729362615",
+    "project_id": "email-formatter-64882",
+    "storage_bucket": "email-formatter-64882.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:28729362615:android:264da846404aae98bb6532",
+        "android_client_info": {
+          "package_name": "com.example.email_formatter_poc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8MDqbtAYryFZ82a_FiiZKSDwc0nfHagg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
