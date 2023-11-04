@@ -8,7 +8,6 @@ import 'package:extension_google_sign_in_as_googleapis_auth/extension_google_sig
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:googleapis/gmail/v1.dart';
-import 'package:googleapis/people/v1.dart';
 import 'package:googleapis_auth/googleapis_auth.dart' as auth show AuthClient;
 import 'package:sign_button/sign_button.dart';
 import 'mailscreen.dart';
@@ -82,23 +81,36 @@ class SignInDemoState extends State<SignInDemo> {
         Message? detailedMessage = await gmailApi.users.messages.get(
             'me', message.id!);
 
+
         String sender = '';
         String subject = '';
         String body = '';
+        String html='';
 
 
         //extracting data
         sender = _getHeaderValue(detailedMessage.payload?.headers, 'From');
         subject = _getHeaderValue(detailedMessage.payload?.headers, 'Subject');
-        //body = detailedMessage.snippet ?? '';
-
-
-        // Decode base64-encoded body
+        //body = detailedMessage.snippet ?? '';   //snippet of message
+        //Decode base64-encoded body
         String? bodyData = detailedMessage.payload?.body?.data;
         body = bodyData != null ? utf8.decode(base64Url.decode(bodyData)) : '';
-        
+
+        //this part is responsible for fetching html content
+        var parts = detailedMessage.payload?.parts?.where((part) => part.mimeType == 'text/html');
+        if (parts != null && parts.isNotEmpty) {
+          var bodyData = parts.first.body?.data;
+          if (bodyData != null) {
+            var decodedBytes = base64Url.decode(bodyData);
+             html = utf8.decode(decodedBytes);
+
+            // Now you can use the 'html' variable as needed.
+            //print(html);
+          }
+        }
+
         emailDataList.add(
-            EmailData(sender: sender, subject: subject, body: body));
+            EmailData(sender: sender, subject: subject, body: body , html:html));
       }
 
 
@@ -150,12 +162,12 @@ class SignInDemoState extends State<SignInDemo> {
             title: Text(user.displayName ?? ''),
             subtitle: Text(user.email),
           ),
-         SizedBox(height: 40,),
+         const SizedBox(height: 40,),
           const Text('Signed in successfully.', style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
           ),),
-          SizedBox(height: 70,),
+          const SizedBox(height: 70,),
 
           //Text(_contactText),
     Card(
@@ -167,7 +179,7 @@ class SignInDemoState extends State<SignInDemo> {
     padding: const EdgeInsets.all(18.0),
     child: Text(
     _contactText,
-    style: TextStyle(
+    style: const TextStyle(
     fontWeight: FontWeight.bold,
     fontSize: 18, // Adjust the font size as needed
     ),
@@ -195,7 +207,7 @@ class SignInDemoState extends State<SignInDemo> {
                     } else {
                       // Handle case where emails are not loaded
                        ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
+                    const SnackBar(
                     content: Text('Emails not loaded yet.'),
                     ),
                     );

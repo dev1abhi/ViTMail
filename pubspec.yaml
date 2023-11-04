@@ -36,6 +36,12 @@ dependencies:
   googleapis_auth: ^1.4.1
   extension_google_sign_in_as_googleapis_auth: ^2.0.11
   sign_button: ^2.0.6
+  flutter_html_v3: ^3.0.6
+  flutter_layout_grid: ^2.0.0
+  flutter_math_fork: ^0.7.1
+  webview_flutter: ^4.4.1
+  flutter_widget_from_html: ^0.14.6
+
 
 
   # The following adds the Cupertino Icons font to your application.
