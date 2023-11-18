@@ -4,6 +4,7 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'package:email_formatter_poc/categories_screen.dart';
 import 'package:email_formatter_poc/sign_up_screen.dart';
 import 'package:extension_google_sign_in_as_googleapis_auth/extension_google_sign_in_as_googleapis_auth.dart';
 import 'package:flutter/material.dart';
@@ -197,12 +198,12 @@ class SignInDemoState extends State<SignInDemo> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => EmailScreen(emails: emailDataList),
+                          builder: (context) => CategoriesScreen(emailDataList: [],),
                         ),
                       );
                     } else {
                       // Handle case where emails are not loaded
-                       ScaffoldMessenger.of(context).showSnackBar(
+                      ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                     content: Text('Emails not loaded yet.'),
                     ),

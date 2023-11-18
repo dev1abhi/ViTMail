@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+
 import 'email_detail_screen.dart';
 import 'models/emaildata.dart';
 
@@ -68,7 +69,7 @@ class EmailScreen extends StatelessWidget {
             },
             child: ListTile(
               title: Text(
-                'From: ' + email.sender,
+                email.subject,
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -78,10 +79,15 @@ class EmailScreen extends StatelessWidget {
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    email.subject,
-                    style: TextStyle(
-                      fontSize: 18,
+                  RichText(
+                    text: TextSpan(
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                      children: <TextSpan>[
+                        TextSpan(text: 'From: ',style: TextStyle(fontWeight: FontWeight.bold)),
+                        TextSpan(text: email.sender)
+                      ]
                     ),
                   ),
 
