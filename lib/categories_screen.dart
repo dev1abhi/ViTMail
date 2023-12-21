@@ -4,16 +4,46 @@ import 'package:email_formatter_poc/mail_screen.dart';
 import 'package:email_formatter_poc/models/emaildata.dart';
 import 'package:flutter/material.dart';
 
-class CategoriesScreen extends StatelessWidget {
-  List<EmailData> emailDataList;
-  CategoriesScreen({required this.emailDataList});
+class CategoriesScreen extends StatefulWidget {
+  final List<EmailData> emailList;
+
+  CategoriesScreen({required this.emailList});
+
+
+
+
+  @override
+  _CategoriesScreenState createState() => _CategoriesScreenState();
+}
+
+class _CategoriesScreenState extends State<CategoriesScreen> {
+  List<EmailData> academicEmails = [];
+  List<EmailData> hostelEmails = [];
+  List<EmailData> careerEmails = [];
+  List<EmailData> eventsEmails = [];
+  List<EmailData> miscEmails = [];
+
+  void sortEmails(String para){
+    print('Total emails: ${widget.emailList!.length}');  // Debug print statement
+    switch (para){
+      case 'academics': {
+        widget.emailList!.where((email) => email.sender.contains('Dean')).forEach((email) {
+          print('Adding academic email: ${email.subject}');  // Debug print statement
+          academicEmails.add(email);
+        });
+        print('Total academic emails: ${academicEmails.length}');  // Debug print statement
+      }
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
     return Scaffold(
     body: Container(
-  width: 360,
-  height: 800,
+  width: screenSize.width,
+  height: screenSize.height,
   clipBehavior: Clip.antiAlias,
   decoration: ShapeDecoration(
     color: Color(0xFFF5EFE7),
@@ -107,7 +137,21 @@ class CategoriesScreen extends StatelessWidget {
         child: Container(
           width: 44,
           height: 40.42,
-          child: ElevatedButton(onPressed: (){}, child: Text('Hostel logo')),
+          child: ElevatedButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => EmailScreen(emails: hostelEmails)));
+          },
+          child: Text('Hostel logo')),
+        ),
+      ),
+      Positioned(
+        left: 211,
+        top: 516,
+        child: Container(
+          width: 47,
+          height: 47,
+          child: ElevatedButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => EmailScreen(emails: careerEmails)));
+          }, child: Text('Career logo')),
         ),
       ),
       Positioned(
@@ -117,8 +161,10 @@ class CategoriesScreen extends StatelessWidget {
           width: 40,
           height: 49.14,
           child: ElevatedButton(onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => EmailScreen(emails: emailDataList)));
-          }, child: Text('Academics logo'))
+            sortEmails('academics');
+            Navigator.push(context, MaterialPageRoute(builder: (context) => EmailScreen(emails: academicEmails)));
+          },
+          child: Text('Academics logo'))
         ),
       ),
       Positioned(
@@ -129,7 +175,20 @@ class CategoriesScreen extends StatelessWidget {
           height: 54,
           clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(),
-          child: Stack(children: []),
+          child: ElevatedButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => EmailScreen(emails: eventsEmails)));
+          }, child: Text('Events logo')),
+        ),
+      ),
+      Positioned(
+        left: 196,
+        top: 643,
+        child: Container(
+          width: 62,
+          height: 33.6,
+          child: ElevatedButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => EmailScreen(emails: miscEmails)));
+          }, child: Text('Miscellaneous logo')),
         ),
       ),
       Positioned(
@@ -304,10 +363,10 @@ class CategoriesScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
-                width: 147,
+                width: 44,
                 height: 20,
                 child: Text(
-                  'MISCELLANEOUS',
+                  'MISC.',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 16,

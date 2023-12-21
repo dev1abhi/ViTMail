@@ -7,7 +7,9 @@ import 'models/emaildata.dart';
 class EmailScreen extends StatelessWidget {
   final List<EmailData> emails;
 
+
   EmailScreen({required this.emails});
+
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +104,7 @@ class EmailScreen extends StatelessWidget {
         },
       ),
     );
-  }
+  } //build method
 }
 
 

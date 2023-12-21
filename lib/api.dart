@@ -4,6 +4,7 @@
 
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:email_formatter_poc/categories_screen.dart';
 import 'package:email_formatter_poc/sign_up_screen.dart';
 import 'package:extension_google_sign_in_as_googleapis_auth/extension_google_sign_in_as_googleapis_auth.dart';
@@ -11,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:googleapis/gmail/v1.dart';
 import 'package:googleapis_auth/googleapis_auth.dart' as auth show AuthClient;
-import 'package:sign_button/sign_button.dart';
+
 import 'mail_screen.dart';
 import 'models/emaildata.dart';
 
@@ -198,7 +199,7 @@ class SignInDemoState extends State<SignInDemo> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => CategoriesScreen(emailDataList: [],),
+                          builder: (context) => CategoriesScreen(emailList: [],),
                         ),
                       );
                     } else {
