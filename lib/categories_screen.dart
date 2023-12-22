@@ -27,11 +27,55 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     print('Total emails: ${widget.emailList!.length}');  // Debug print statement
     switch (para){
       case 'academics': {
-        widget.emailList!.where((email) => email.sender.contains('Dean')).forEach((email) {
-          print('Adding academic email: ${email.subject}');  // Debug print statement
+        widget.emailList!.where((email) =>
+        email.sender.contains('HOD') ||
+        email.sender.contains('Dean')).forEach((email) {
+          //print('Adding academic email: ${email.subject}');  // Debug print statement
           academicEmails.add(email);
         });
-        print('Total academic emails: ${academicEmails.length}');  // Debug print statement
+        //print('Total academic emails: ${academicEmails.length}');  // Debug print statement
+      }
+      case 'hostel': {
+        widget.emailList!.where((email) =>
+        email.sender.contains('Hostel') ||
+        email.sender.contains('Warden')).forEach((email) {
+          hostelEmails.add(email);
+        });
+      }
+      case 'career': {
+        widget.emailList!.where((email) =>
+        email.sender.contains('VITTBI') ||
+        email.sender.contains('Placement') ||
+        email.sender.contains('IR')).forEach((email) {
+          careerEmails.add(email);
+        });
+      }
+      case 'events': {
+        widget.emailList!.where((email) =>
+        email.sender.contains('Student Welfare') ||
+        email.sender.contains('Riviera') ||
+        email.subject.toLowerCase().contains('riviera') ||
+        email.sender.contains('Gravitas') ||
+        email.subject.toLowerCase().contains('gravitas')).forEach((email) {
+          eventsEmails.add(email);
+        });
+      }
+      case 'misc': {
+        widget.emailList!.where((email) =>
+        email.sender.contains('Viswanathan') ||
+        email.sender.contains('PROVC') ||
+        email.sender.contains('Chancellor') ||
+        email.sender.contains('Vice Chancellor') ||
+        email.sender.contains('Periyar') ||
+        email.sender.contains('Duolingo') ||
+        email.sender.contains('Google') ||
+        email.subject.toLowerCase().contains('greetings') ||
+        email.body.toLowerCase().contains('quiz') ||
+        email.subject.toLowerCase().contains('quiz') ||
+        email.body.toLowerCase().contains('notes') ||
+        email.subject.toLowerCase().contains('notes')).forEach((email) {
+          miscEmails.add(email);
+        });
       }
     }
   }
@@ -138,6 +182,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
           width: 44,
           height: 40.42,
           child: ElevatedButton(onPressed: (){
+            sortEmails('hostel');
             Navigator.push(context, MaterialPageRoute(builder: (context) => EmailScreen(emails: hostelEmails)));
           },
           child: Text('Hostel logo')),
@@ -150,6 +195,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
           width: 47,
           height: 47,
           child: ElevatedButton(onPressed: (){
+            sortEmails('career');
             Navigator.push(context, MaterialPageRoute(builder: (context) => EmailScreen(emails: careerEmails)));
           }, child: Text('Career logo')),
         ),
@@ -176,6 +222,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
           clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(),
           child: ElevatedButton(onPressed: (){
+            sortEmails('events');
             Navigator.push(context, MaterialPageRoute(builder: (context) => EmailScreen(emails: eventsEmails)));
           }, child: Text('Events logo')),
         ),
@@ -187,6 +234,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
           width: 62,
           height: 33.6,
           child: ElevatedButton(onPressed: (){
+            sortEmails('misc');
             Navigator.push(context, MaterialPageRoute(builder: (context) => EmailScreen(emails: miscEmails)));
           }, child: Text('Miscellaneous logo')),
         ),

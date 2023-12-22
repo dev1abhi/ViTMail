@@ -115,12 +115,6 @@ class SignInDemoState extends State<SignInDemo> {
         _contactText = 'Emails loaded'; // Clear the loading text
       });
 
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => EmailScreen(emails: emailDataList),
-        ),
-      );
 
 
     } catch (error) {
@@ -199,7 +193,7 @@ class SignInDemoState extends State<SignInDemo> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => CategoriesScreen(emailList: [],),
+                          builder: (context) => CategoriesScreen(emailList: emailDataList,),
                         ),
                       );
                     } else {
