@@ -90,6 +90,7 @@ class SignInDemoState extends State<SignInDemo> {
         String? bodyData = detailedMessage.payload?.body?.data;
         body = bodyData != null ? utf8.decode(base64Url.decode(bodyData)) : '';
 
+
         //this part is responsible for fetching html content
         var parts = detailedMessage.payload?.parts?.where((part) => part.mimeType == 'text/html');
         if (parts != null && parts.isNotEmpty) {
@@ -98,11 +99,51 @@ class SignInDemoState extends State<SignInDemo> {
             var decodedBytes = base64Url.decode(bodyData);
              html = utf8.decode(decodedBytes);
 
-            
-            // Now you can use the 'html' variable as needed.
-            //print(html);
           }
         }
+
+        var alternativeParts = detailedMessage.payload?.parts
+            ?.where((part) => part.mimeType == 'multipart/alternative')
+            .toList();
+        if (alternativeParts != null && alternativeParts.isNotEmpty) {
+          // Extract text/plain content
+          body = extractContentByMimeType(alternativeParts, 'text/plain');
+
+          // Extract text/html content
+          html = extractContentByMimeType(alternativeParts, 'text/html');
+
+        }
+
+
+        var a = detailedMessage.payload?.parts?.where((part) => part.mimeType == 'multipart/related').toList();
+        if (a != null && a.isNotEmpty) {
+          print("subject = $subject");
+          for (var part in a) {
+            print(" part is ${part.mimeType}");
+            for (var nestedPart in part.parts ?? []) {
+              print(" nestedPart is ${nestedPart.mimeType}");
+              print("${nestedPart.body?.size}");
+
+              if (nestedPart.mimeType == 'multipart/alternative') {
+                // Handle multipart/alternative content
+                String textContent = nestedPart.parts?.firstWhere((subPart) => subPart.mimeType == 'text/plain', orElse: () => MessagePart(body: MessagePartBody(data: '')))?.body?.data ?? '';
+                // Now 'textContent' contains the text content from the multipart/alternative part
+                body = textContent != null ? utf8.decode(base64Url.decode(textContent)) : '';
+              }
+
+              if (nestedPart.mimeType == 'image/jpeg' && nestedPart.body?.data != null) {
+                // Handle image/jpeg content
+                List<int> imageData = base64.decode(nestedPart.body!.data!);
+              }
+            }
+          }
+        }
+
+
+
+
+        // Now you can use the 'html' variable as needed.
+        //print(body);
 
         emailDataList.add(
             EmailData(sender: sender, subject: subject, body: body , html:html));
@@ -248,6 +289,35 @@ class SignInDemoState extends State<SignInDemo> {
       orElse: () => MessagePartHeader(name: headerName, value: 'Unknown'),
     );
     return header?.value ?? 'Unknown';
+  }
+
+  String extractContentByMimeType(List<MessagePart>? parts, String mimeType) {
+
+    // if (parts != null) {
+    //   print(parts.length);
+    //   for (var part in parts) {
+    //     print(part.mimeType);
+    //   }
+    // }
+    if (parts != null && parts.length == 1) {
+      var alternativeParts = parts.first.parts;
+      if (alternativeParts != null) {
+        for (var part in alternativeParts) {
+          if (part.mimeType == mimeType) {
+            //print('Debug: Found MIME type ${part.mimeType}');
+            var bodyData = part.body?.data;
+            if (bodyData != null) {
+              var decodedBytes = base64Url.decode(bodyData);
+              return utf8.decode(decodedBytes) ;
+
+            }
+          }
+        }
+      }
+    }
+
+    //print('empty');
+    return '';
   }
 
 }
