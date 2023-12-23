@@ -10,7 +10,7 @@ class EmailDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('Debug: email.html = ${email.html}');
+    //print('Debug: email.html = ${email.html}');
     return Scaffold(
       appBar: AppBar(
         title: Text('Email Detail'),
@@ -20,7 +20,9 @@ class EmailDetailScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('From: ' + email.sender),
+            const Text('From: ',style: TextStyle(fontWeight: FontWeight.bold)),
+            Text(email.sender),
+            const Text('Subject: ',style: TextStyle(fontWeight: FontWeight.bold)),
             Text(email.subject),
             if (email.body != null && !email.body.contains("!DOCTYPE html") ) Text(email.body)
             else HtmlWidget(email.body),

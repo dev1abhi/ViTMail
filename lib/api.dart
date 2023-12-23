@@ -10,8 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:googleapis/gmail/v1.dart';
 import 'package:googleapis_auth/googleapis_auth.dart' as auth show AuthClient;
-import 'package:sign_button/sign_button.dart';
-import 'mail_screen.dart';
+import 'email_list_screen.dart';
 import 'models/emaildata.dart';
 
 final GoogleSignIn _googleSignIn = GoogleSignIn(
@@ -102,6 +101,7 @@ class SignInDemoState extends State<SignInDemo> {
           }
         }
 
+        // Handle multipart/alternative content
         var alternativeParts = detailedMessage.payload?.parts
             ?.where((part) => part.mimeType == 'multipart/alternative')
             .toList();
@@ -114,7 +114,7 @@ class SignInDemoState extends State<SignInDemo> {
 
         }
 
-
+       //Handle multipart/related content
         var a = detailedMessage.payload?.parts?.where((part) => part.mimeType == 'multipart/related').toList();
         if (a != null && a.isNotEmpty) {
           print("subject = $subject");
@@ -128,22 +128,18 @@ class SignInDemoState extends State<SignInDemo> {
                 // Handle multipart/alternative content
                 String textContent = nestedPart.parts?.firstWhere((subPart) => subPart.mimeType == 'text/plain', orElse: () => MessagePart(body: MessagePartBody(data: '')))?.body?.data ?? '';
                 // Now 'textContent' contains the text content from the multipart/alternative part
-                body = textContent != null ? utf8.decode(base64Url.decode(textContent)) : '';
+                body =  utf8.decode(base64Url.decode(textContent)) ;
               }
 
               if (nestedPart.mimeType == 'image/jpeg' && nestedPart.body?.data != null) {
                 // Handle image/jpeg content
                 List<int> imageData = base64.decode(nestedPart.body!.data!);
+
+                // TODO: Do something with the image data
               }
             }
           }
         }
-
-
-
-
-        // Now you can use the 'html' variable as needed.
-        //print(body);
 
         emailDataList.add(
             EmailData(sender: sender, subject: subject, body: body , html:html));
@@ -153,13 +149,6 @@ class SignInDemoState extends State<SignInDemo> {
       setState(() {
         _contactText = 'Emails loaded'; // Clear the loading text
       });
-
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => EmailScreen(emails: emailDataList),
-        ),
-      );
 
 
     } catch (error) {
