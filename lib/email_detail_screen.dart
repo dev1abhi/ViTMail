@@ -11,6 +11,7 @@ class EmailDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //print('Debug: email.html = ${email.html}');
     return Scaffold(
       appBar: AppBar(
         title: const Text('Email Details'),
@@ -26,7 +27,13 @@ class EmailDetailScreen extends StatelessWidget {
             Text(email.subject),
             if (email.body != null && !email.body.contains("!DOCTYPE html") ) Text(email.body)
             else HtmlWidget(email.body),
-            if (email.html != null) HtmlWidget(email.html),
+
+
+            if (email.html != null )
+              HtmlWidget(email.html),
+
+
+
           ],
         ),
       ),
