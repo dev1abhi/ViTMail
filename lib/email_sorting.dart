@@ -7,6 +7,10 @@ class EmailSorting {
     List<EmailData> filteredList = [];
 
     switch (category) {
+      case 'all':
+        filteredList = emails;
+        break;
+
       case 'academics':
         filteredList = emails.where((email) =>
         email.sender.contains('HOD') ||

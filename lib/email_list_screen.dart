@@ -77,6 +77,10 @@ class _EmailScreenState extends State<EmailScreen> {
             runSpacing: 4.0,
             children: [
               FilterChip(
+                label: const Text('All'),
+                onSelected: (selected) => sortEmails('all'),
+              ),
+              FilterChip(
                 label: const Text('Academics'),
                 onSelected: (selected) => sortEmails('academics'),
               ),

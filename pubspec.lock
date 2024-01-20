@@ -153,6 +153,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.8"
+  dio:
+    dependency: transitive
+    description:
+      name: dio
+      sha256: "797e1e341c3dd2f69f2dad42564a6feff3bfb87187d05abb93b9609e6f1645c3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.4.0"
   extension_google_sign_in_as_googleapis_auth:
     dependency: "direct main"
     description:
@@ -198,6 +206,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.3.1"
+  flutter_gemini:
+    dependency: "direct main"
+    description:
+      name: flutter_gemini
+      sha256: "3de3a1ffbd8efef8f10c65b9cc752591cc74a7d72ea1cc77e1f227a3af114ee1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   flutter_html_v3:
     dependency: "direct main"
     description:
@@ -222,6 +238,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.3"
+  flutter_markdown:
+    dependency: "direct main"
+    description:
+      name: flutter_markdown
+      sha256: "30088ce826b5b9cfbf9e8bece34c716c8a59fa54461dcae1e4ac01a94639e762"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.6.18+3"
   flutter_math_fork:
     dependency: "direct main"
     description:
@@ -264,6 +288,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.14.6"
+  freezed_annotation:
+    dependency: transitive
+    description:
+      name: freezed_annotation
+      sha256: c3fd9336eb55a38cc1bbd79ab17573113a8deccd0ecbbf926cca3c62803b5c2d
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.4.1"
   fwfh_cached_network_image:
     dependency: transitive
     description:
@@ -416,6 +448,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.7"
+  json_annotation:
+    dependency: transitive
+    description:
+      name: json_annotation
+      sha256: b10a7b2ff83d83c777edba3c6a0f97045ddadd56c944e1a23a3fdf43a1bf4467
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.8.1"
   just_audio:
     dependency: transitive
     description:
@@ -464,6 +504,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  markdown:
+    dependency: transitive
+    description:
+      name: markdown
+      sha256: acf35edccc0463a9d7384e437c015a3535772e09714cf60e07eeef3a15870dcd
+      url: "https://pub.dev"
+    source: hosted
+    version: "7.1.1"
   matcher:
     dependency: transitive
     description:

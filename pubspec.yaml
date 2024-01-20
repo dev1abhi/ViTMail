@@ -41,6 +41,8 @@ dependencies:
   flutter_math_fork: ^0.7.1
   webview_flutter: ^4.4.1
   flutter_widget_from_html: ^0.14.6
+  flutter_gemini: ^2.0.0
+  flutter_markdown: ^0.6.18+3
 
 
 
@@ -77,6 +79,7 @@ flutter:
     - assets/images/background.jpg
     - assets/images/logo1.jpg
     - assets/images/bg2.jpg
+    - assets/images/bg3.jpg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

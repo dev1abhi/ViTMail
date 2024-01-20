@@ -64,7 +64,7 @@ class SignInDemoState extends State<SignInDemo> {
 
     try {
       ListMessagesResponse messagesResponse = await gmailApi.users.messages
-          .list('me');
+          .list('me',maxResults: 100);//TODO : Pagination
       List<Message>? messages = messagesResponse.messages;
 
 
@@ -117,12 +117,12 @@ class SignInDemoState extends State<SignInDemo> {
        //Handle multipart/related content
         var a = detailedMessage.payload?.parts?.where((part) => part.mimeType == 'multipart/related').toList();
         if (a != null && a.isNotEmpty) {
-          print("subject = $subject");
+          //print("subject = $subject");
           for (var part in a) {
-            print(" part is ${part.mimeType}");
+            //print(" part is ${part.mimeType}");
             for (var nestedPart in part.parts ?? []) {
-              print(" nestedPart is ${nestedPart.mimeType}");
-              print("${nestedPart.body?.size}");
+              //print(" nestedPart is ${nestedPart.mimeType}");
+              //print("${nestedPart.body?.size}");
 
               if (nestedPart.mimeType == 'multipart/alternative') {
                 // Handle multipart/alternative content
