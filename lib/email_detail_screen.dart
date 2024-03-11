@@ -36,7 +36,7 @@ class _EmailDetailScreenState extends State<EmailDetailScreen> {
 
       if (!widget.email.body.contains("!DOCTYPE html")) {
         gemini.text(' Summarize the following text (if it is a event , then provide important '
-            'details like date timing and short description) (give in proper presentable format having spaces in between):  ${widget.email.body} ')
+              'details like date timing and short description) (give in proper presentable format having spaces in between):  ${widget.email.body} ')
             .then((value) {
           if (mounted) {
             setState(() {
@@ -72,9 +72,9 @@ class _EmailDetailScreenState extends State<EmailDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.email.body != null && !widget.email.body.contains("!DOCTYPE html"))
+    if (widget.email.body != null && !widget.email.body.contains("!DOCTYPE html") && widget.email.body.isNotEmpty)
       textthere = true;
-    //print('Debug: email.html = ${email.html}');
+    //print('Debug: Size of email.body = ${widget.email.body?.length ?? 0}');
     return Scaffold(
       appBar: AppBar(
         title: Text('Email Detail'),
@@ -109,8 +109,10 @@ class _EmailDetailScreenState extends State<EmailDetailScreen> {
                   SizedBox(height: 8),
                   Text(widget.email.subject),
                   SizedBox(height: 16),
-                  if (widget.email.body != null && !widget.email.body.contains("!DOCTYPE html"))
-                    Column(
+
+                  //pure text emails
+                  if (widget.email.body != null && !widget.email.body.contains("!DOCTYPE html") && widget.email.body.isNotEmpty)
+                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         ElevatedButton(
@@ -135,7 +137,9 @@ class _EmailDetailScreenState extends State<EmailDetailScreen> {
                              //Text('$summarizedText')
                              MarkdownBody(data: summarizedText!),
                         if (!showSummarizedText)
-                            Text('Full Email:\n ${widget.email.body}'),
+                            MarkdownBody(data: widget.email.body!),
+                            //Text('Full Email:\n ${widget.email.body}'),
+
                       ],
                     )
                   else

@@ -91,6 +91,7 @@ class SignInDemoState extends State<SignInDemo> {
 
 
         //this part is responsible for fetching html content
+        //Text/HTML content
         var parts = detailedMessage.payload?.parts?.where((part) => part.mimeType == 'text/html');
         if (parts != null && parts.isNotEmpty) {
           var bodyData = parts.first.body?.data;
@@ -121,9 +122,11 @@ class SignInDemoState extends State<SignInDemo> {
           for (var part in a) {
             //print(" part is ${part.mimeType}");
             for (var nestedPart in part.parts ?? []) {
-              //print(" nestedPart is ${nestedPart.mimeType}");
-              //print("${nestedPart.body?.size}");
-
+              print(" nestedPart is ${nestedPart.mimeType}");
+              if (nestedPart.body?.attachmentId != null)
+                {
+                  //Do something with attachments
+                }
               if (nestedPart.mimeType == 'multipart/alternative') {
                 // Handle multipart/alternative content
                 String textContent = nestedPart.parts?.firstWhere((subPart) => subPart.mimeType == 'text/plain', orElse: () => MessagePart(body: MessagePartBody(data: '')))?.body?.data ?? '';
