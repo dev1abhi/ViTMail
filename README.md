@@ -1,10 +1,13 @@
-# email_formatter_poc
+# ViTMail
 
-A new Flutter project.
+Flutter based Mail-Service App made using Gmail API.
 
-## Getting Started
+# Techstacks used
+- Flutter
+- Firebase (for getting authentication token for Gmail API)
+- Gmail API
+- Google Gemini for summarizing mails
 
-This project is a starting point for a Flutter application.
 
 A few resources to get you started if this is your first Flutter project:
 
