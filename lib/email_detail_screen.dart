@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
@@ -24,7 +25,8 @@ class _EmailDetailScreenState extends State<EmailDetailScreen> {
   void initState() {
     super.initState();
     // initializing gemini model
-    Gemini.init(apiKey: 'AIzaSyBAA2JQYWckwagOCnVaWQnx6H4tb0Kw23k');
+    Gemini.init(apiKey: dotenv.env['API_KEY']!);
+
     summarizeEmailBody();
   }
 
@@ -35,25 +37,30 @@ class _EmailDetailScreenState extends State<EmailDetailScreen> {
       });
 
       if (!widget.email.body.contains("!DOCTYPE html")) {
-        gemini.text(' Summarize the following text (if it is a event , then provide important '
-              'details like date timing and short description) (give in proper presentable format having spaces in between):  ${widget.email.body} ')
-            .then((value) {
-          if (mounted) {
-            setState(() {
-              summarizedText = value?.output;
-              isSummarizing = false;
-            });
-          }
-        })
-            .catchError((e) {
-          if (mounted) {
-            setState(() {
-              isSummarizing = false;
-            });
-          }
-          print(e);
-        });
-      } else {
+
+
+        // gemini.text(' Summarize the following text (if it is a event , then provide important '
+        //       'details like date timing and short description) (give in proper presentable format having spaces in between):  ${widget.email.body} ')
+        //     .then((value) {
+        //   if (mounted) {
+        //     setState(() {
+        //       summarizedText = value?.output;
+        //       isSummarizing = false;
+        //     });
+        //   }
+        // })
+        //     .catchError((e) {
+        //   if (mounted) {
+        //     setState(() {
+        //       isSummarizing = false;
+        //     });
+        //   }
+        //   print(e);
+        // });
+        _summarizeWithRetry(widget.email.body, 3, 1); // maxRetries=3, initialDelayInSeconds=1
+      }
+
+      else {
         if (mounted) {
           setState(() {
             isSummarizing = false;
@@ -61,6 +68,39 @@ class _EmailDetailScreenState extends State<EmailDetailScreen> {
         }
       }
     }
+  }
+
+  void _summarizeWithRetry(String text, int maxRetries, int initialDelayInSeconds) {
+    int retries = 0;
+    Duration delay = Duration(seconds: initialDelayInSeconds);
+
+    void attempt() {
+      gemini.text(' Summarize the following text (if it is an event, then provide important '
+          'details like date, timing, and short description) (give in proper presentable format having spaces in between):  $text ')
+          .then((value) {
+        if (mounted) {
+          setState(() {
+            summarizedText = value?.output;
+            isSummarizing = false;
+          });
+        }
+      }).catchError((e) {
+        if (e is GeminiException && e.statusCode == 429 && retries < maxRetries) {
+          retries++;
+          Future.delayed(delay, attempt);
+          delay *= 2; // Exponential backoff
+        } else {
+          if (mounted) {
+            setState(() {
+              isSummarizing = false;
+            });
+          }
+          print(e);
+        }
+      });
+    }
+
+    attempt();
   }
 
 

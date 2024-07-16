@@ -64,7 +64,8 @@ class SignInDemoState extends State<SignInDemo> {
 
     try {
       ListMessagesResponse messagesResponse = await gmailApi.users.messages
-          .list('me',maxResults: 100);//TODO : Pagination
+          .list('me');//TODO : Pagination
+      //can set maxResults:50
       List<Message>? messages = messagesResponse.messages;
 
 
@@ -125,7 +126,7 @@ class SignInDemoState extends State<SignInDemo> {
               print(" nestedPart is ${nestedPart.mimeType}");
               if (nestedPart.body?.attachmentId != null)
                 {
-                  //Do something with attachments
+                  //TODO: Do something with attachments
                 }
               if (nestedPart.mimeType == 'multipart/alternative') {
                 // Handle multipart/alternative content
@@ -176,6 +177,7 @@ class SignInDemoState extends State<SignInDemo> {
 
   Widget _buildBody() {
     final GoogleSignInAccount? user = _currentUser;
+    late String userName = user?.displayName ?? '';
     if (user != null) {
       return Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -230,7 +232,7 @@ class SignInDemoState extends State<SignInDemo> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => EmailScreen(emails: emailDataList),
+                          builder: (context) => EmailScreen(emails: emailDataList,displayName: userName),
                         ),
                       );
                     } else {
