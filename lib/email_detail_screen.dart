@@ -8,7 +8,7 @@ import 'models/emaildata.dart';
 class EmailDetailScreen extends StatefulWidget {
   final EmailData email;
 
-  EmailDetailScreen({required this.email});
+  const EmailDetailScreen({super.key, required this.email});
 
   @override
   State<EmailDetailScreen> createState() => _EmailDetailScreenState();
@@ -112,16 +112,17 @@ class _EmailDetailScreenState extends State<EmailDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.email.body != null && !widget.email.body.contains("!DOCTYPE html") && widget.email.body.isNotEmpty)
+    if (!widget.email.body.contains("!DOCTYPE html") && widget.email.body.isNotEmpty) {
       textthere = true;
+    }
     //print('Debug: Size of email.body = ${widget.email.body?.length ?? 0}');
     return Scaffold(
       appBar: AppBar(
-        title: Text('Email Detail'),
+        title: const Text('Email Detail'),
       ),
       body: Center(
         child: Container(
-    decoration: BoxDecoration(
+    decoration: const BoxDecoration(
     image: DecorationImage(
     image: AssetImage('assets/images/bg3.jpg'), // Set your image path here
     fit: BoxFit.cover,
@@ -129,29 +130,29 @@ class _EmailDetailScreenState extends State<EmailDetailScreen> {
     ),
           child: Card(
             color: Colors.white,
-            margin: EdgeInsets.all(30),
+            margin: const EdgeInsets.all(30),
             elevation: 10,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(32.0),
               //border color
-              side: BorderSide(color: Colors.black, width: 2.0),
+              side: const BorderSide(color: Colors.black, width: 2.0),
             ),
             child: SingleChildScrollView(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text('From: ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20)),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(widget.email.sender),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   const Text('Subject: ',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(widget.email.subject),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
 
                   //pure text emails
-                  if (widget.email.body != null && !widget.email.body.contains("!DOCTYPE html") && widget.email.body.isNotEmpty)
+                  if (!widget.email.body.contains("!DOCTYPE html") && widget.email.body.isNotEmpty)
                      Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -159,25 +160,25 @@ class _EmailDetailScreenState extends State<EmailDetailScreen> {
                           onPressed: () {
                               toggleSummarizedText();
                           },
-                          child: Text(showSummarizedText ? 'Show Full Text' : 'Show Summarized Text'),
                         style: ElevatedButton.styleFrom(
                           foregroundColor: Colors.white,
                           backgroundColor: Colors.blue,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(32.0),
                           ),
-                        )
+                        ),
+                          child: Text(showSummarizedText ? 'Show Full Text' : 'Show Summarized Text')
 
                         ),
-                        SizedBox(height: 16),
+                        const SizedBox(height: 16),
                         if (showSummarizedText)
                           if (isSummarizing)
-                            Center(child: CircularProgressIndicator())
+                            const Center(child: CircularProgressIndicator())
                           else if (summarizedText != null)
                              //Text('$summarizedText')
                              MarkdownBody(data: summarizedText!),
                         if (!showSummarizedText)
-                            MarkdownBody(data: widget.email.body!),
+                            MarkdownBody(data: widget.email.body),
                             //Text('Full Email:\n ${widget.email.body}'),
 
                       ],
@@ -185,7 +186,7 @@ class _EmailDetailScreenState extends State<EmailDetailScreen> {
                   else
                     HtmlWidget(widget.email.body),
 
-                  if (widget.email.html != null && !textthere)
+                  if (!textthere)
                     HtmlWidget(widget.email.html),
                 ],
               ),

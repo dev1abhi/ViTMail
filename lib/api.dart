@@ -123,7 +123,7 @@ class SignInDemoState extends State<SignInDemo> {
           for (var part in a) {
             //print(" part is ${part.mimeType}");
             for (var nestedPart in part.parts ?? []) {
-              print(" nestedPart is ${nestedPart.mimeType}");
+              //print(" nestedPart is ${nestedPart.mimeType}");
               if (nestedPart.body?.attachmentId != null)
                 {
                   //TODO: Do something with attachments
@@ -137,7 +137,7 @@ class SignInDemoState extends State<SignInDemo> {
 
               if (nestedPart.mimeType == 'image/jpeg' && nestedPart.body?.data != null) {
                 // Handle image/jpeg content
-                List<int> imageData = base64.decode(nestedPart.body!.data!);
+                //List<int> imageData = base64.decode(nestedPart.body!.data!);
 
                 // TODO: Do something with the image data
               }

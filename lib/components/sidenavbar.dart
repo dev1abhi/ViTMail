@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class SideNavBar extends StatefulWidget {
   final String userName;
 
-  const SideNavBar({required this.userName});
+  const SideNavBar({super.key, required this.userName});
 
   @override
   State<SideNavBar> createState() => _SideNavBarState();
@@ -17,16 +17,16 @@ class _SideNavBarState extends State<SideNavBar> {
 
     return Drawer(
         width: 240,
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topRight: Radius.circular(74),
             bottomRight: Radius.circular(74),
           ),
         ),
-        backgroundColor: Color(0xFF213555),
+        backgroundColor: const Color(0xFF213555),
         child: Stack(
           children: [
-            Positioned(
+            const Positioned(
               top: 100,
               left: 73.83,
               child: Icon(
@@ -40,7 +40,7 @@ class _SideNavBarState extends State<SideNavBar> {
               left: 63,
               child: Text(
                 firstName,
-                style: TextStyle(
+                style: const TextStyle(
                     color: Colors.white,
                     fontSize: 21,
                     fontFamily: 'Lato',
@@ -48,15 +48,15 @@ class _SideNavBarState extends State<SideNavBar> {
               ),
             ),
             Padding(
-                padding: EdgeInsets.only(top: 261),
+                padding: const EdgeInsets.only(top: 261),
                 child: Column(
                   children: [
                     ListTile(
-                      leading: Icon(
+                      leading: const Icon(
                         Icons.home,
                         color: Colors.white,
                       ),
-                      title: Text(
+                      title: const Text(
                         'Home',
                         style: TextStyle(
                             color: Colors.white,
@@ -69,11 +69,11 @@ class _SideNavBarState extends State<SideNavBar> {
                       },
                     ),
                     ListTile(
-                      leading: Icon(
+                      leading: const Icon(
                         Icons.mail,
                         color: Colors.white,
                       ),
-                      title: Text(
+                      title: const Text(
                         'Inbox',
                         style: TextStyle(
                             color: Colors.white,
@@ -86,11 +86,11 @@ class _SideNavBarState extends State<SideNavBar> {
                       },
                     ),
                     ListTile(
-                      leading: Icon(
+                      leading: const Icon(
                         Icons.star,
                         color: Colors.yellow,
                       ),
-                      title: Text(
+                      title: const Text(
                         'Important',
                         style: TextStyle(
                             color: Colors.white,
@@ -103,11 +103,11 @@ class _SideNavBarState extends State<SideNavBar> {
                       },
                     ),
                     ListTile(
-                      leading: Icon(
+                      leading: const Icon(
                         Icons.settings,
                         color: Colors.white,
                       ),
-                      title: Text(
+                      title: const Text(
                         'Settings',
                         style: TextStyle(
                             color: Colors.white,
@@ -120,11 +120,11 @@ class _SideNavBarState extends State<SideNavBar> {
                       },
                     ),
                     ListTile(
-                      leading: Icon(
+                      leading: const Icon(
                         Icons.question_mark_rounded,
                         color: Colors.white,
                       ),
-                      title: Text(
+                      title: const Text(
                         'FAQ',
                         style: TextStyle(
                             color: Colors.white,

@@ -8,7 +8,7 @@ class EmailScreen extends StatefulWidget {
   final List<EmailData> emails;
   final String displayName;
 
-  EmailScreen({required this.emails, required this.displayName});
+  const EmailScreen({super.key, required this.emails, required this.displayName});
 
   @override
   _EmailScreenState createState() => _EmailScreenState();
@@ -43,11 +43,11 @@ class _EmailScreenState extends State<EmailScreen> {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
-    final appBarHeightPercentage = 0.09;
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    const appBarHeightPercentage = 0.09;
+    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
     return Scaffold(
-      key: _scaffoldKey,
+      key: scaffoldKey,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -76,12 +76,12 @@ class _EmailScreenState extends State<EmailScreen> {
                 IconButton(
                   onPressed: () {
                     print('SideNavBar Button Pressed');
-                    _scaffoldKey.currentState?.openDrawer();
+                    scaffoldKey.currentState?.openDrawer();
                   },
-                  icon: Icon(Icons.menu),
+                  icon: const Icon(Icons.menu),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 110),
+                const Padding(
+                  padding: EdgeInsets.only(left: 110),
                   child: Text(
                     'Mailbox',
                     style: TextStyle(
@@ -179,15 +179,15 @@ class _EmailScreenState extends State<EmailScreen> {
       return Center(
         child: ElevatedButton(
           onPressed: loadMoreEmails,
-          child: Text(
-            'Load More',
-            style: TextStyle(color: Colors.white),
-          ),
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.cyan,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             ),
+          ),
+          child: const Text(
+            'Load More',
+            style: TextStyle(color: Colors.white),
           ),
         ),
       );
