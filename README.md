@@ -8,6 +8,14 @@ Flutter based Mail-Service App made using Gmail API.
 - Gmail API
 - Google Gemini for summarizing mails
 
+# Snapshots
+
+<img width="200" height="500" alt="Screenshot 2023-12-21 225614" src="https://github.com/user-attachments/assets/e52d5608-5f94-4c30-bc3d-f5e6c4ded8dc" />
+<img width="200" height="500" alt="Screenshot 2024-01-10 021300" src="https://github.com/user-attachments/assets/890dcc3a-1c15-496a-b8bd-4282d93ef2ff" />
+<img width="200" height="500" alt="Screenshot 2024-01-10 021307" src="https://github.com/user-attachments/assets/22bb3298-f718-46d8-b95b-c4fce5a1d22e" />
+
+
+# Resources
 
 A few resources to get you started if this is your first Flutter project:
 
