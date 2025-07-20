@@ -2,6 +2,12 @@
 
 Flutter based Mail-Service App made using Gmail API.
 
+# Snapshots
+<img width="200" height="500" alt="Screenshot 2023-12-21 225614" src="https://github.com/user-attachments/assets/7f8d5607-b9fe-42b4-a58c-fd6a238bf5dc" />
+<img width="200" height="500" alt="Screenshot 2024-01-10 021300" src="https://github.com/user-attachments/assets/adb16bc6-3892-4830-a2fd-aef777b49003" />
+<img width="200" height="500" alt="Screenshot 2024-01-10 021307" src="https://github.com/user-attachments/assets/bb2d1600-9617-418d-bb3a-94850cb10548" />
+
+
 # Techstacks used
 - Flutter
 - Firebase (for getting authentication token for Gmail API)
